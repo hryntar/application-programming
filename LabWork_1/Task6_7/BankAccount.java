@@ -4,12 +4,14 @@ public class BankAccount {
    private final String accountId;
    private final User owner;
    private final Bank bank;
+   private final String currency;
    private double balance;
 
-   public BankAccount(String accountId, User owner, Bank bank, double initialBalance) {
+   public BankAccount(String accountId, User owner, Bank bank, String currency, double initialBalance) {
       this.accountId = accountId;
       this.owner = owner;
       this.bank = bank;
+      this.currency = currency;
       this.balance = initialBalance;
    }
 
@@ -23,6 +25,10 @@ public class BankAccount {
 
    public Bank getBank() {
       return bank;
+   }
+
+   public String getCurrency() {
+      return currency;
    }
 
    public double getBalance() {
@@ -44,8 +50,8 @@ public class BankAccount {
    public void transferTo(BankAccount targetAccount, double amount, CurrencyConverter converter) {
       double convertedAmount = amount;
 
-      if (!this.bank.getCurrency().equals(targetAccount.getBank().getCurrency())) {
-         convertedAmount = converter.convert(this.bank.getCurrency(), targetAccount.getBank().getCurrency(), amount);
+      if (!this.currency.equals(targetAccount.getCurrency())) {
+         convertedAmount = converter.convert(this.currency, targetAccount.getCurrency(), amount);
       }
 
       double fee = calculateFee(targetAccount);
@@ -54,7 +60,7 @@ public class BankAccount {
       if (this.withdraw(amount)) {
          targetAccount.deposit(totalAmount);
          System.out.printf("Transferred %.2f %s from account %s to account %s. Commission: %.2f%%\n",
-               amount, this.bank.getCurrency(), this.accountId, targetAccount.getAccountId(), fee * 100);
+               amount, this.currency, this.accountId, targetAccount.getAccountId(), fee * 100);
       } else {
          System.out.println("Insufficient funds for the transfer.");
       }
