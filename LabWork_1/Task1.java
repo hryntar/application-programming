@@ -18,6 +18,17 @@ public class Task1 {
    }
 
    public static String convertToBinary(int number) {
-      return Integer.toBinaryString(number);
+      StringBuilder binary = new StringBuilder();
+
+      if (number == 0) {
+         return "0";
+      }
+
+      while (number > 0) {
+         binary.insert(0, number % 2);
+         number = number / 2;
+      }
+
+      return binary.toString();
    }
 }
