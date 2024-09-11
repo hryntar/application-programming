@@ -5,20 +5,18 @@ import java.util.Map;
 
 public class Bank {
    private final String name;
-   private final String currency;
    private final Map<String, BankAccount> accounts = new HashMap<>();
 
-   public Bank(String name, String currency) {
+   public Bank(String name) {
       this.name = name;
-      this.currency = currency;
-   }
-
-   public String getCurrency() {
-      return currency;
    }
 
    public void addAccount(BankAccount account) {
-      accounts.put(account.getAccountId(), account);
+      if (!accounts.containsKey(account.getAccountId())) {
+         accounts.put(account.getAccountId(), account);
+      } else {
+         System.out.println("Account with ID " + account.getAccountId() + " already exists.");
+      }
    }
 
    public BankAccount getAccount(String accountId) {
