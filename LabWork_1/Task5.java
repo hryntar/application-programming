@@ -1,36 +1,29 @@
 package LabWork_1;
 
 public class Task5 {
+   private static final String[][] MATRIX = {
+           { "abc", "def", "ghi" },
+           { "jkl", "mno", "pqr nof" },
+           { "stu", "vwx", "ynono" }
+   };
+
+   private static final String SUBSTRING = "no";
+
    public static void main(String[] args) {
-      String[][] matrix = {
-            { "abc", "def", "ghi" },
-            { "jkl", "mno", "pqr" },
-            { "stu", "vwx", "yno" }
-      };
-
-      String substring = "no";
-
-      int occurrences = countSubstringInMatrix(matrix, substring);
-      System.out.println("Occurrences of '" + substring + "': " + occurrences);
+      int occurrences = countSubstrings(MATRIX, SUBSTRING);
+      System.out.println("Occurrences of '" + SUBSTRING + "': " + occurrences);
    }
 
-   public static int countSubstringInMatrix(String[][] matrix, String substring) {
+   public static int countSubstrings(String[][] matrix, String substring) {
       int count = 0;
-
-      for (int i = 0; i < matrix.length; i++) {
-         String row = String.join("", matrix[i]);
-         count += countOccurrences(row, substring);
-      }
-
-      return count;
-   }
-
-   public static int countOccurrences(String text, String substring) {
-      int count = 0;
-      int index = 0;
-      while ((index = text.indexOf(substring, index)) != -1) {
-         count++;
-         index += substring.length();
+      for (String[] row : matrix) {
+         for (String str : row) {
+            int pos = str.indexOf(substring);
+            while (pos != -1) {
+               count++;
+               pos = str.indexOf(substring, pos + 1);
+            }
+         }
       }
       return count;
    }
