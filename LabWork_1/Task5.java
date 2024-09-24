@@ -1,17 +1,17 @@
 package LabWork_1;
 
 public class Task5 {
+   private static final String[][] MATRIX = {
+           { "abc", "def", "ghi" },
+           { "jkl", "mno", "pqr nof" },
+           { "stu", "vwx", "ynono" }
+   };
+
+   private static final String SUBSTRING = "no";
+
    public static void main(String[] args) {
-      final String[][] matrix = {
-            { "abc", "def", "ghi" },
-            { "jkl", "mno", "pqr nof" },
-            { "stu", "vwx", "ynono" }
-      };
-
-      final String substring = "no";
-
-      int occurrences = countSubstrings(matrix, substring);
-      System.out.println("Occurrences of '" + substring + "': " + occurrences);
+      int occurrences = countSubstrings(MATRIX, SUBSTRING);
+      System.out.println("Occurrences of '" + SUBSTRING + "': " + occurrences);
    }
 
    public static int countSubstrings(String[][] matrix, String substring) {

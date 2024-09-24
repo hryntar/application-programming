@@ -26,10 +26,10 @@ public class Task1 {
       StringBuilder binary = new StringBuilder();
 
       while (number > 0) {
-         binary.append(number % 2);
+         binary.insert(0, number % 2);
          number = number / 2;
       }
 
-      return binary.reverse().toString();
+      return binary.toString();
    }
 }
