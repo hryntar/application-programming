@@ -1,18 +1,18 @@
 package LabWork_1.Task6_7;
 
 public class BankAccount {
-   private final String accountId;
    private final User owner;
    private final Bank bank;
+   private final String accountId;
    private final String currency;
    private double balance;
 
-   public BankAccount(String accountId, User owner, Bank bank, String currency, double initialBalance) {
-      this.accountId = accountId;
+   public BankAccount(User owner, String currency, double balance, Bank bank) {
+      this.accountId = java.util.UUID.randomUUID().toString();
       this.owner = owner;
-      this.bank = bank;
       this.currency = currency;
-      this.balance = initialBalance;
+      this.balance = balance;
+      this.bank = bank;
    }
 
    public String getAccountId() {
@@ -23,10 +23,6 @@ public class BankAccount {
       return owner;
    }
 
-   public Bank getBank() {
-      return bank;
-   }
-
    public String getCurrency() {
       return currency;
    }
@@ -35,46 +31,51 @@ public class BankAccount {
       return balance;
    }
 
+   public Bank getBank() {
+      return bank;
+   }
+
    public void deposit(double amount) {
-      balance += amount;
+      this.balance += amount;
    }
 
-   public boolean withdraw(double amount) {
-      if (balance >= amount) {
-         balance -= amount;
-         return true;
+   public void withdraw(double amount) {
+      if (amount > balance) {
+         throw new IllegalArgumentException("no enough money on account");
       }
-      return false;
+      this.balance -= amount;
    }
 
-   public void transferTo(BankAccount targetAccount, double amount, CurrencyConverter converter) {
-      double convertedAmount = amount;
-
-      if (!this.currency.equals(targetAccount.getCurrency())) {
-         convertedAmount = converter.convert(this.currency, targetAccount.getCurrency(), amount);
+   public void transfer(BankAccount targetAccount, double amount) {
+      if (amount <= 0) {
+         throw new IllegalArgumentException("cannot transfer an amount less or equal to zero");
       }
 
       double fee = calculateFee(targetAccount);
-      double totalAmount = convertedAmount * (1 - fee);
+      double totalAmount = amount + amount * fee;
 
-      if (this.withdraw(amount)) {
-         targetAccount.deposit(totalAmount);
-         System.out.printf("Transferred %.2f %s from account %s to account %s. Commission: %.2f%%\n",
-               amount, this.currency, this.accountId, targetAccount.getAccountId(), fee * 100);
+      if (this.getCurrency().equals(targetAccount.getCurrency())) {
+         this.withdraw(totalAmount);
+         targetAccount.deposit(amount);
       } else {
-         System.out.println("Insufficient funds for the transfer.");
+         double convertedAmount = this.bank.getCurrencyConverter().convert(this.getCurrency(), targetAccount.getCurrency(), amount);
+         this.withdraw(totalAmount);
+         targetAccount.deposit(convertedAmount);
       }
+
+      System.out.println("Transferred " + amount + " " + this.getCurrency() + " to " + targetAccount.getOwner().getName()
+              + " (" + targetAccount.getBank().getName() + "), fee: " + fee * 100 + "%.");
    }
 
    private double calculateFee(BankAccount targetAccount) {
-      if (this.owner.equals(targetAccount.getOwner())) {
-         if (this.bank.equals(targetAccount.getBank())) {
+      if (this.getOwner().equals(targetAccount.getOwner())) {
+         if (this.getBank().getName().equals(targetAccount.getBank().getName())) {
             return 0.0;
          } else {
             return 0.02;
          }
       } else {
-         if (this.bank.equals(targetAccount.getBank())) {
+         if (this.getBank().getName().equals(targetAccount.getBank().getName())) {
             return 0.03;
          } else {
             return 0.06;

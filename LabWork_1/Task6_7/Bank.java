@@ -4,26 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
+   private static final Map<String, BankAccount> accountRegistry = new HashMap<>();
    private final String name;
-   private final Map<String, BankAccount> accounts = new HashMap<>();
+   private final CurrencyConverter currencyConverter;
 
-   public Bank(String name) {
+   public Bank(String name, CurrencyConverter currencyConverter) {
       this.name = name;
-   }
-
-   public void addAccount(BankAccount account) {
-      if (!accounts.containsKey(account.getAccountId())) {
-         accounts.put(account.getAccountId(), account);
-      } else {
-         System.out.println("Account with ID " + account.getAccountId() + " already exists.");
-      }
-   }
-
-   public BankAccount getAccount(String accountId) {
-      return accounts.get(accountId);
+      this.currencyConverter = currencyConverter;
    }
 
    public String getName() {
       return name;
+   }
+
+   public CurrencyConverter getCurrencyConverter() {
+      return currencyConverter;
+   }
+
+   public BankAccount createAccount(User owner, String currency, double initialBalance) {
+      String accountKey = generateAccountKey(owner, currency);
+      if (accountRegistry.containsKey(accountKey)) {
+         throw new IllegalArgumentException("account already exists " + owner.getName() + " in currency " + currency);
+      }
+
+      BankAccount account = new BankAccount(owner, currency, initialBalance, this);
+      accountRegistry.put(accountKey, account);
+      return account;
+   }
+
+   private String generateAccountKey(User owner, String currency) {
+      return owner.getUserId() + "-" + currency;
+   }
+
+   public static Map<String, BankAccount> getAccountRegistry() {
+      return accountRegistry;
    }
 }
