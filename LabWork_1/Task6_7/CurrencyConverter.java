@@ -27,13 +27,17 @@ public class CurrencyConverter {
    }
 
    public static void main(String[] args) {
-      CurrencyConverter converter = new CurrencyConverter();
+      try {
+         CurrencyConverter converter = new CurrencyConverter();
 
-      Scanner scanner = new Scanner(System.in);
-      System.out.println("Enter values to convert (f.e. '100 UAH into USD'):");
-      String input = scanner.nextLine();
-      converter.processConversion(input);
-      scanner.close();
+         Scanner scanner = new Scanner(System.in);
+         System.out.print("Convert: ");
+         String input = scanner.nextLine();
+         double result = converter.processConversion(input);
+         System.out.println(result);
+      } catch (Exception e) {
+         System.out.println("Error: " + e.getMessage());
+      }
    }
 
    public double convert(String fromCurrency, String toCurrency, double amount) {
@@ -45,13 +49,20 @@ public class CurrencyConverter {
       }
    }
 
-   public void processConversion(String input) {
-      String[] parts = input.split(" ");
-      final double amount = Double.parseDouble(parts[0]);
-      final String fromCurrency = parts[1].toUpperCase();
-      final String toCurrency = parts[3].toUpperCase();
-
-      double result = convert(fromCurrency, toCurrency, amount);
-      System.out.printf("%.2f %s = %.2f %s\n", amount, fromCurrency, result, toCurrency);
+   public double processConversion(String input) {
+      if (input.isBlank()) {
+         throw new IllegalArgumentException("Input is empty");
+      }
+      try {
+         String[] parts = input.split(" ");
+         final double amount = Double.parseDouble(parts[0]);
+         final String fromCurrency = parts[1].toUpperCase();
+         final String toCurrency = parts[3].toUpperCase();
+         return convert(fromCurrency, toCurrency, amount);
+      } catch (IllegalArgumentException e) {
+         throw new IllegalArgumentException(e.getMessage());
+      } catch (ArrayIndexOutOfBoundsException e) {
+         throw new ArrayIndexOutOfBoundsException("Invalid input format");
+      }
    }
 }
