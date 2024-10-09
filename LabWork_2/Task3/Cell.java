@@ -3,9 +3,9 @@ package LabWork_2.Task3;
 import java.util.ArrayList;
 import java.util.List;
 
-class Cell {
+public class Cell {
     private final List<Item> items = new ArrayList<>();
-    int MAX_ITEMS_PER_CELL = 5;
+    private static final int MAX_ITEMS_PER_CELL = 5;
 
     public void addItem(Item item) {
         int totalSize = getTotalSize();
