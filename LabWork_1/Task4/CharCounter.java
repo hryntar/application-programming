@@ -36,4 +36,15 @@ public class CharCounter {
             System.out.println(charCountPairs[i].getSymbol() + ": " + charCountPairs[i].getCount());
         }
     }
+
+    public static void main(String[] args) {
+        int[] array = new int[5];
+        for (int i = 0; i < array.length; i++) {
+            if (i % 2 == 0) {
+                array[i] = 0;
+            } else {
+                array[i] = -1;
+            }
+        }
+    }
 }
