@@ -11,9 +11,9 @@ public class Graph {
         this.isDirected = isDirected;
     }
 
-    public Node addNode(String name, int value) {
+    public Node addNode(String name) {
         if (!nodes.containsKey(name)) {
-            Node node = new Node(name, value);
+            Node node = new Node(name);
             nodes.put(name, node);
             return node;
         }
@@ -31,13 +31,13 @@ public class Graph {
         nodes.remove(name);
     }
 
-    public void addEdge(String name1, String name2, int weight) {
-        Node node1 = addNode(name1, 0);
-        Node node2 = addNode(name2, 0);
-        node1.addNeighbor(node2, weight);
+    public void addEdge(String name1, String name2) {
+        Node node1 = addNode(name1);
+        Node node2 = addNode(name2);
+        node1.addNeighbor(node2);
 
         if (!isDirected) {
-            node2.addNeighbor(node1, weight);
+            node2.addNeighbor(node1);
         }
     }
 
@@ -56,10 +56,10 @@ public class Graph {
         for (Map.Entry<String, Node> entry : nodes.entrySet()) {
             Node currentNode = entry.getValue();
 
-            System.out.print(currentNode.getName() + " (" + currentNode.getValue() + ") -> ");
+            System.out.print(currentNode.getName() + " -> ");
 
             for (Node neighbor : currentNode.getNeighbors().keySet()) {
-                System.out.print(neighbor.getName() + " (" + neighbor.getValue() + ") ");
+                System.out.print(neighbor.getName());
             }
 
             System.out.println();

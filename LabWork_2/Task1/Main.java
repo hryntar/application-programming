@@ -3,15 +3,15 @@ package LabWork_2.Task1;
 public class Main {
     public static void main(String[] args) {
         Graph directedGraph = new Graph(true);
-        directedGraph.addNode("A", 10);
-        directedGraph.addNode("B", 20);
-        directedGraph.addNode("C", 30);
-        directedGraph.addNode("D", 40);
+        directedGraph.addNode("A");
+        directedGraph.addNode("B");
+        directedGraph.addNode("C");
+        directedGraph.addNode("D");
 
-        directedGraph.addEdge("A", "B", 5);
-        directedGraph.addEdge("A", "C", 10);
-        directedGraph.addEdge("B", "D", 15);
-        directedGraph.addEdge("C", "D", 20);
+        directedGraph.addEdge("A", "B");
+        directedGraph.addEdge("A", "C");
+        directedGraph.addEdge("B", "D");
+        directedGraph.addEdge("C", "D");
 
         System.out.println("Орінтований граф:");
         directedGraph.printGraph();
@@ -23,13 +23,13 @@ public class Main {
         directedGraph.printGraph();
 
         Graph undirectedGraph = new Graph(false);
-        undirectedGraph.addNode("X", 50);
-        undirectedGraph.addNode("Y", 60);
-        undirectedGraph.addNode("Z", 70);
+        undirectedGraph.addNode("X");
+        undirectedGraph.addNode("Y");
+        undirectedGraph.addNode("Z");
 
-        undirectedGraph.addEdge("X", "Y", 25);
-        undirectedGraph.addEdge("Y", "Z", 35);
-        undirectedGraph.addEdge("X", "Z", 45);
+        undirectedGraph.addEdge("X", "Y");
+        undirectedGraph.addEdge("Y", "Z");
+        undirectedGraph.addEdge("X", "Z");
 
         System.out.println("Неорієнтований граф:");
         undirectedGraph.printGraph();

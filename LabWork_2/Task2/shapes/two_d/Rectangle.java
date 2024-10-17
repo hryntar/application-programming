@@ -1,6 +1,6 @@
 package LabWork_2.Task2.shapes.two_d;
 
-public class Rectangle {
+public class Rectangle extends Shape2D {
     private final double width;
     private final double height;
 
