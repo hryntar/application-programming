@@ -4,13 +4,13 @@ public class Main {
     public static void main(String[] args) {
         Storage storage = new Storage(3);
 
-        Item item1 = new Item(2, "Item 1", 101);
-        Item item2 = new Item(1, "Item 2", 102);
-        Item item3 = new Item(3, "Item 3", 103);
-        Item item4 = new Item(2, "Item 4", 104);
-        Item item5 = new Item(1, "Item 5", 105);
-        Item item6 = new Item(2, "Item 6", 106);
-        Item item7 = new Item(4, "Item 7", 107);
+        Item item1 = new Item(2, 3, 1, "Item 1", 101);
+        Item item2 = new Item(1, 2, 2, "Item 2", 102);
+        Item item3 = new Item(3, 1, 1, "Item 3", 103);
+        Item item4 = new Item(2, 2, 2, "Item 4", 104);
+        Item item5 = new Item(1, 1, 3, "Item 5", 105);
+        Item item6 = new Item(2, 2, 1, "Item 6", 106);
+        Item item7 = new Item(4, 4, 4, "Item 7", 107);
 
         storage.addItem(item1);
         storage.addItem(item2);

@@ -6,22 +6,27 @@ import java.util.List;
 public class Cell {
     private final List<Item> items = new ArrayList<>();
     private static final int MAX_ITEMS_PER_CELL = 5;
+    private static final int MAX_VOLUME_PER_CELL = 100;
 
     public void addItem(Item item) {
-        int totalSize = getTotalSize();
-        if (totalSize + item.getSize() <= MAX_ITEMS_PER_CELL) {
+        if (items.size() >= MAX_ITEMS_PER_CELL) {
+            throw new IllegalArgumentException("У комірці досягнуто максимальну кількість товарів");
+        }
+
+        int totalVolume = getTotalVolume();
+        if (totalVolume + item.getVolume() <= MAX_VOLUME_PER_CELL) {
             items.add(item);
         } else {
-            throw new IllegalArgumentException("Товар з ID " + item.getItemID() + " завеликий");
+            throw new IllegalArgumentException("Товар з ID " + item.getItemID() + " завеликий для цієї комірки");
         }
     }
 
-    public int getTotalSize() {
-        int totalSize = 0;
+    public int getTotalVolume() {
+        int totalVolume = 0;
         for (Item item : items) {
-            totalSize += item.getSize();
+            totalVolume += item.getVolume();
         }
-        return totalSize;
+        return totalVolume;
     }
 
     public List<Item> getItems() {
