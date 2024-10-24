@@ -5,9 +5,9 @@ public class Item {
     private final int width;
     private final int height;
     private final String name;
-    private final int itemID;
+    private final long itemID;
 
-    public Item(int length, int width, int height, String name, int itemID) {
+    public Item(int length, int width, int height, String name, long itemID) {
         this.length = length;
         this.width = width;
         this.height = height;
@@ -31,7 +31,7 @@ public class Item {
         return name;
     }
 
-    public int getItemID() {
+    public long getItemID() {
         return itemID;
     }
 
