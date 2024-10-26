@@ -6,7 +6,11 @@ import java.util.List;
 public class Cell {
     private final List<Item> items = new ArrayList<>();
     private static final int MAX_ITEMS_PER_CELL = 5;
-    private static final int MAX_VOLUME_PER_CELL = 100;
+    private static int MAX_VOLUME_PER_CELL = 100;
+
+//    public Cell() {
+//        MAX_VOLUME_PER_CELL = maxVolume;
+//    }
 
     public void addItem(Item item) {
         if (items.size() >= MAX_ITEMS_PER_CELL) {
@@ -30,8 +34,16 @@ public class Cell {
     }
 
     public List<Item> getItems() {
+        
         return items;
     }
+
+//    public static void main(String[] args) {
+//        List<String> list = new ArrayList<>(5);
+//        for (int i = 0; i < 6; i++) {
+//            list.add("Item " + i);
+//        }
+//    }
 
     @Override
     public String toString() {
